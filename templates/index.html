@@ -2,12 +2,21 @@
 
 {% block content %}
 <p><img src="/static/img/banner.jpeg" alt="banner" width="800px" height="400px" hspace="150px"><br><br><br></p>
+<table class="table">
+            <tr class="table-active">
+
+                <td> {% for t in jobs %}
 <div class="card" style="width: 18rem;">
-  <img src="/static/img/eoc_tshirt.png" class="card-img-top" alt="Eye of cthulhu">
+  <img src= "/static/img/{{t.img}}"/>
   <div class="card-body">
-    <h5 class="card-title">Футболка "Глаз Ктулху"</h5>
-    <p class="card-text">Современная хлопковая футболка. В жару не жарко - в холод не холодно.</p>
+    <h5 class="card-title">{{t.name}}</h5>
+    <p class="card-text">{{t.price}}р.<br>
+    {{t.desc}}</p>
     <a href="#" class="btn btn-primary">положить в корзину</a>
   </div>
 </div>
+{% endfor %}</td>
+
+            </tr>
+        </table>
 {% endblock %}
