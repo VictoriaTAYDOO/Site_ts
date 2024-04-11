@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+<link rel="stylesheet" href="static/css/table.css">
 <p><img src="/static/img/banner.jpeg" alt="banner" width="800px" height="400px" hspace="150px"><br><br><br></p>
 <table class="table">
-            <tr class="table-active">
-
-                <td> {% for t in jobs %}
+{% for t in jobs %}
+                {% if t.id % 4 == 1 %}
+                <tr class="table-active">
+                    {% endif %}
+                    <td>
 <div class="card" style="width: 18rem;">
   <img src= "/static/img/{{t.img}}"/>
   <div class="card-body">
@@ -15,8 +18,11 @@
     <a href="#" class="btn btn-primary">положить в корзину</a>
   </div>
 </div>
-{% endfor %}</td>
+</td>
+                   {% if t.id % 4 == 0 %}
+                    </tr>
+    {% endif %}
 
-            </tr>
+{% endfor %}
         </table>
 {% endblock %}
