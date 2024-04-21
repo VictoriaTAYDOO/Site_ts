@@ -18,10 +18,11 @@ def get_jobs():
     return jsonify(
         {
             'jobs':
-                [item.to_dict(only=('id', 'job', 'team_leader', 'work_size', 'collaborators', 'is_finished'))
+                [item.to_dict(only=('id', 'name', 'price', 'desc', 'img', 'type'))
                  for item in jobs]
         }
     )
+
 
 @blueprint.route('/api/jobs/<int:jobs_id>', methods=['GET'])
 def get_one_jobs(jobs_id):
@@ -32,25 +33,6 @@ def get_one_jobs(jobs_id):
     return jsonify(
         {
             'jobs': jobs.to_dict(only=(
-                'id', 'job', 'team_leader', 'work_size', 'collaborators', 'is_finished'))
+                'id', 'name', 'price', 'desc', 'img', 'type'))
         }
     )
-
-@blueprint.route('/api/jobs', methods=['POST'])
-def create_job():
-    if not request.json:
-        return make_response(jsonify({'error': 'Empty request'}), 400)
-    elif not all(key in request.json for key in
-                 ['job', 'team_leader', 'work_size', 'collaborators', 'is_finished']):
-        return make_response(jsonify({'error': 'Bad request'}), 400)
-    db_sess = db_session.create_session()
-    jobs = Jobs(
-        job=request.json['job'],
-        team_leader=request.json['team_leader'],
-        work_size=request.json['work_size'],
-        collaborators=request.json['collaborators'],
-        is_finished=request.json['is_finished'],
-    )
-    db_sess.add(jobs)
-    db_sess.commit()
-    return jsonify({'id': jobs.id})
