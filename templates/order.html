@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for order in orders %}
+<br>
+<br>
+<table style="border: 1px solid #D3D3D3; height: 40px;">
+    <tr>
+        <th style="height: 40px; width: 150px;"> Дата заказа:</th>
+        <td style="height: 40px; width: 160px;">{{order.date}}</td>
+    </tr>
+    <tr>
+        <th style="height: 40px; width: 150px;"> Номер заказа:</th>
+        <td>{{order.id}}</td>
+    </tr>
+    <tr>
+        <th style="height: 40px; width: 150px;"> Адрес доставки:</th>
+        <td>{{order.address}}</td>
+    </tr>
+    <tr>
+        <th style="height: 40px; width: 150px;"> К оплате:</th>
+        <td>{{order.total}} ₽</td>
+    </tr>
+</table>
+<br>
+{% endfor %}
+
+{% endblock %}

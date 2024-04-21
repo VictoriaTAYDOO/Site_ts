@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<table align="center" style="width: 1000px; border: 1px solid #D3D3D3;">
+    <tr>
+        <th style="width: 80px; border-bottom: 1px solid #D3D3D3;"></th>
+        <th style="border-bottom: 1px solid #D3D3D3; text-align: center; width: 300;"><h4>Товар</h4></th>
+        <th style="width: 80px; border-bottom: 1px solid #D3D3D3;"></th>
+        <th style="text-align: center; border-bottom: 1px solid #D3D3D3;"><h4></h4></th>
+        <th style="width: 80px; border-bottom: 1px solid #D3D3D3;"></th>
+        <th style="text-align: center; border: 1px solid #D3D3D3;"><h4>Cтоимость</h4></th>
+    </tr>
+              {% for t in cart %}
+<tr>
+    <th style="border-bottom: 1px solid #D3D3D3; text-align: center;"><img src="/static/img/{{t.img}}" width="160"/></th>
+    <th style="border-bottom: 1px solid #D3D3D3; text-align: left; width: 300px;"><h5>{{t.name}}</h5></th>
+    <th style="border-bottom: 1px solid #D3D3D3; text-align: right"><a href="/quantity/{{current_user.email}}/{{t.id}}/-" class="btn btn-secondary">-</a></th>
+    <th style="text-align: center; border-bottom: 1px solid #D3D3D3; width: 50px;"><h5>{{t.quantity}}</h5></th>
+    <th style="border-bottom: 1px solid #D3D3D3;"><a href="/quantity/{{current_user.email}}/{{t.id}}/+" class="btn btn-primary">+</a></th>
+    <th style="text-align: center; border: 1px solid #D3D3D3; width: 100px;"><h5>{{t.tprice}} ₽</h5></th>
+   </tr>
+{% endfor %}
+    <tr>
+        <th style="width: 80px; border-bottom: 1px solid #D3D3D3; border-upper: 1px solid #D3D3D3;">Итого:</th>
+        <th style="border-bottom: 1px solid #D3D3D3; text-align: center; width: 300; border-upper: 1px solid #D3D3D3;"></th>
+        <th style="width: 80px; border-bottom: 1px solid #D3D3D3; border-upper: 1px solid #D3D3D3;"></th>
+        <th style="text-align: center; border-bottom: 1px solid #D3D3D3; border-upper: 1px solid #D3D3D3;"></th>
+        <th style="width: 80px; border-bottom: 1px solid #D3D3D3; border-upper: 1px solid #D3D3D3;"></th>
+        {% for u in user %}
+        <th style="text-align: center; border: 1px solid #D3D3D3; border-upper: 1px solid #D3D3D3;">{{u.total}} ₽</th>
+        {% endfor %}
+    </tr>
+        </table>
+<br>
+<div style="display: flex;
+  justify-content: center;">
+    {% for u in user %}
+    {% if u.total != 0 %}
+        <a href="/set_order/{{current_user.email}}/{{u.total}}" class="btn btn-primary" style="margin: 0 auto;">Оформить заказ</a>
+    {% else %}
+    <a href="#" class="btn btn-secondary" style="margin: 0 auto;">Оформить заказ</a>
+    {% endif %}
+        {% endfor %}
+</div>
+
+{% endblock %}
